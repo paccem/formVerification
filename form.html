@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Forms</title>
+	<style>
+		legend{
+			text-align: center;
+			text-transform: uppercase;
+		}
+		label{
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<fieldset>
+		<legend>User Registration</legend>
+		<form method="post" name="loginForm" onchange="return validateForm()" onsubmit="return validateForm()">
+			<div>
+				<label>Name</label><br>
+				<input type="text" placeholder="Name" name="name">
+				<span id="nameError">*required</span>
+			</div>
+			<br>
+			<div>
+				<label>Phone Number</label><br>
+				<input type="tel" placeholder="Phone Number" name="phone">
+				<span id="phoneError">*required</span>
+			</div>
+			<br>
+			<div>
+				<label>Username</label><br>
+				<input type="text" placeholder="Username" name="username">
+				<span id="usernameError">*required</span>
+			</div>
+			<br>
+			
+			<div>
+				<label>Password</label><br>
+				<input type="password" placeholder="Password" name="password">
+				<span id="passwordError">*required</span>
+			</div>
+			<br>
+			<div>
+				<label>Confirm Password</label><br>
+				<input type="password" placeholder="confirm Password" name="confirmPassword">
+				<span id="confirmError">*required</span>
+			</div>
+			<br>
+			<button>Login</button>
+		</form>
+	</fieldset>
+
+
+	<script type="text/javascript">
+		function validateForm() {
+			let name = document.forms["loginForm"]["name"].value;
+			let phone = document.forms["loginForm"]["phone"].value;
+			let username = document.forms["loginForm"]["username"].value;
+			let password = document.forms["loginForm"]["password"].value;
+			let confirmPassword = document.forms["loginForm"]["confirmPassword"].value;
+			let alphabets =  /^[A-Za-z ]+$/;
+
+			if (name == "" || name == null) {
+				document.getElementById("nameError").innerHTML = "name is required and cannot be empty";
+				return false;
+			}else if (!(name.match(alphabets))) {
+				document.getElementById("nameError").innerHTML = "sorry only alphabets are allowed in name field";
+				return false;
+			}else if(name.length < 5 ){
+				document.getElementById("nameError").innerHTML = "Name must be 5 characters and above";
+				return false;
+			}else if (phone == "" || phone == null) {
+				document.getElementById("nameError").style.color ="green";
+				document.getElementById("nameError").innerHTML = "correct";
+				document.getElementById("phoneError").innerHTML = "Phone number cannot be empty";
+				return false;
+			}else if (isNaN(phone)) {
+				document.getElementById("phoneError").innerHTML = "Please enter a valid number";
+				return false;
+			}else if (username == "" || username == null) {
+				document.getElementById("usernameError").innerHTML = "username is required and cannot be empty";
+				return false;
+			}else if(username.length < 8 ){
+				document.getElementById("usernameError").innerHTML = "username must be 8 characters and above";
+				return false;
+			}else if (password == "" || password == null) {
+				document.getElementById("passwordError").innerHTML = "password is required and cannot be empty";
+				return false;
+			}else if(password.length < 8 ){
+				document.getElementById("passwordError").innerHTML = "password must be 8 characters and above";
+				return false;
+			}else if (confirmPassword != password) {
+				document.getElementById("confirmError").innerHTML = "Password mismatch please confirm password";
+				return false;
+				
+			}
+			else{
+				setTimeout(function(){
+					window.pop("Hello "+ name)
+					window.location="vote1.html";
+				},1000)
+				alert("Registration Successful...")
+			}
+		}
+	</script>
+</body>
+</html>
